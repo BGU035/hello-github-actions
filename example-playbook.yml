@@ -1,0 +1,18 @@
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+  - name: Install packages
+    apt:
+     name:
+     - ntpdate
+     - nmap
+     state: latest
+     cache_valid_time: 3600
+  - name: Echo the date to a tmp file
+    shell: echo "`date`" > /tmp/date
+  - name: Echo String a tmp file
+    shell: echo "Techexpert.tips is a great website" /tmp/techexpert
+  - name: Scan host using nmap
+    shell: nmap "{{ ip_var }}"
